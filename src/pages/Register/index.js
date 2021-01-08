@@ -11,6 +11,8 @@ import {
 
 import { useForm } from "react-hook-form";
 
+import { useHistory } from "react-router-dom";
+
 import { rules } from "./validation";
 
 import { registerUser } from "../../api/auth";
@@ -25,6 +27,8 @@ export default function Register() {
   let { register, handleSubmit, errors, setError } = useForm();
   //state status dengan nilai default `statuslist.idle`
   let [status, setStatus] = React.useState(statuslist.idle);
+  let history = useHistory();
+
   const onSubmit = async (formData) => {
     //cek data di dalam alert sudah terparsing atau belum
     // alert(JSON.stringify(FormData));
@@ -51,7 +55,11 @@ export default function Register() {
           type: "server",
           message: data.fields[field]?.properties?.message,
         });
+        setStatus(statuslist.error);
+        return;
       });
+      setStatus(statuslist.success);
+      history.pushState("/register/berhasil");
     }
   };
   return (

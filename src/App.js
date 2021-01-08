@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 
 import { listen } from "./app/listener";
 import Register from "./pages/Register";
+import RegisterSuccess from "./pages/RegisterSuccess";
 
 function App() {
   // panggil fungsi listen() sekali saja saat komponen selesai render pertama kali
@@ -21,6 +22,9 @@ function App() {
         <Switch>
           <Route path="/register" component={Register} />
           <Route path="/" component={Home} />
+          <Route path="/register/berhasil">
+            <RegisterSuccess />
+          </Route>
         </Switch>
       </Router>
     </Provider>

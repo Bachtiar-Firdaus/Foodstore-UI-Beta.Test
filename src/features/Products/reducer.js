@@ -64,6 +64,16 @@ export default function reducer(state = initialState, action) {
       };
     case SET_TAGS:
       return { ...state, tags: action.tags };
+    case TOGGLE_TAG:
+      if (!state.tags.includes(action.tag)) {
+        return { ...state, currentPage: 1, tags: [...state.tags, action.tag] };
+      } else {
+        return {
+          ...state,
+          currentPage: 1,
+          tags: state.tags.filter((tag) => tag !== action.tag),
+        };
+      }
     default:
       return state;
   }

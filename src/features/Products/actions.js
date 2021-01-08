@@ -91,3 +91,9 @@ export const setTags = tags =>{
     tags
   }
 }
+export const toggleTag = tag =>{
+  return{
+    type:TOGGLE_TAG,
+    tag
+  }
+}

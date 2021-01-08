@@ -73,6 +73,20 @@ export const setPage = (number = 1)=>{
     currentPage:number
   }
 }
+
+export const goToNextPage = ()=>{
+  return{
+    type: NEXT_PAGE
+  }
+}
+export const goToPrevPage = () =>{
+  return{
+    type: PREV_PAGE
+  }
+}
+
+
+
 export const setKeyword = keyword=>{
   return{
     type: SET_KEYWORD,
@@ -91,14 +105,13 @@ export const setTags = tags =>{
     tags
   }
 }
+export const clearTags = () => {
+  return setTags([]);
+}
+
 export const toggleTag = tag =>{
   return{
     type:TOGGLE_TAG,
     tag
-  }
-}
-export const goToNextPage = ()=>{
-  return{
-    type: NEXT_PAGE
   }
 }

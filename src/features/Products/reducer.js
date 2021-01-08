@@ -39,9 +39,6 @@ export default function reducer(state = initialState, action) {
     // tangani `START_FETCHING_PRODUCT`
     case START_FETCHING_PRODUCT:
       return { ...state, status: statuslist.process };
-    // tangani `ERROR_FETCHING_PRODUCT`
-    case ERROR_FETCHING_PRODUCT:
-      return { ...state, status: statuslist.error };
     // tangani `SUCCESS_FETCHING_PRODUCT`
     case SUCCESS_FETCHING_PRODUCT:
       return {
@@ -50,6 +47,9 @@ export default function reducer(state = initialState, action) {
         data: action.data,
         totalItems: action.count,
       };
+    // tangani `ERROR_FETCHING_PRODUCT`
+    case ERROR_FETCHING_PRODUCT:
+      return { ...state, status: statuslist.error };
     case SET_PAGE:
       return { ...state, currentPage: action.currentPage };
     case SET_KEYWORD:
@@ -76,6 +76,8 @@ export default function reducer(state = initialState, action) {
       }
     case NEXT_PAGE:
       return { ...state, currentPage: state.currentPage + 1 };
+    case PREV_PAGE:
+      return { ...state, currentPage: state.currentPage - 1 };
     default:
       return state;
   }

@@ -79,3 +79,9 @@ export const setKeyword = keyword=>{
     keyword
   }
 }
+export const setCategory = category =>{
+  return{
+    type: SET_CATEGORY,
+    category
+  }
+}

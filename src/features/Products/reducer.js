@@ -54,6 +54,14 @@ export default function reducer(state = initialState, action) {
       return { ...state, currentPage: action.currentPage };
     case SET_KEYWORD:
       return { ...state, keyword: action.keyword, category: "", tags: [] };
+    case SET_CATEGORY:
+      return {
+        ...state,
+        currentPage: 1,
+        tags: [],
+        category: action.category,
+        keyword,
+      };
     default:
       return state;
   }

@@ -50,6 +50,8 @@ export default function reducer(state = initialState, action) {
         data: action.data,
         totalItems: action.count,
       };
+    case SET_PAGE:
+      return { ...state, currentPage: action.currentPage };
     default:
       return state;
   }

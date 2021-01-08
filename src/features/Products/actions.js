@@ -67,3 +67,9 @@ export const successFetchingProducts = ({ data, count }) => {
     count,
   };
 };
+export const setPage = (number = 1)=>{
+  return{
+    type: SET_PAGE,
+    currentPage:number
+  }
+}

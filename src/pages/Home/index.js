@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import BounceLoader from "react-spinners/BounceLoader";
+
 import {
   SideNav,
   LayoutSidebar,
@@ -36,6 +38,11 @@ export default function Home() {
           <div className="md:flex md:flex-row-reverse w-full mr-5 h-full min-h-screen">
             <div className="w-full md:w-3/4 pl-5 pb-10">
               <TopBar />
+              {products.status === "process" && !products.data.length ? (
+                <div className="flex justify-center">
+                  <BounceLoader color="red" />
+                </div>
+              ) : null}
               <Responsive desktop={3} items="stretch">
                 {products.data.map((product, index) => {
                   return (

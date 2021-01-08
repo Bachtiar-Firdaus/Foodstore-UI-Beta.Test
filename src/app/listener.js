@@ -15,4 +15,4 @@ function listener() {
 function listen() {
   store.subscribe(listen);
 }
-export { listen };
+export { listen, listener };

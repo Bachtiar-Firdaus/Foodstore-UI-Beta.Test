@@ -1,15 +1,30 @@
-import React from "react";
+import * as React from "react";
 
-import { Button, Card, FormControl, InputText, LayoutOne } from "upkit";
+import {
+  Button,
+  Card,
+  FormControl,
+  InputPassword,
+  InputText,
+  LayoutOne,
+} from "upkit";
 
 import { useForm } from "react-hook-form";
 
 import { rules } from "./validation";
 
 import { registerUser } from "../../api/auth";
-
+// statuslist
+const statuslist = {
+  idle: "idle",
+  process: "process",
+  success: "success",
+  error: "error",
+};
 export default function Register() {
   let { register, handleSubmit, errors, setError } = useForm();
+  //state status dengan nilai default `statuslist.idle`
+  let [status, setStatus] = React.useState(statuslist.idle);
   const onSubmit = async (formData) => {
     //cek data di dalam alert sudah terparsing atau belum
     // alert(JSON.stringify(FormData));
@@ -23,7 +38,8 @@ export default function Register() {
         message: "Konfirmasi password harus sama dengan password",
       });
     }
-
+    // set status = process
+    setStatus(statuslist.process);
     let { data } = await registerUser(formData);
     // cek apakah ada error
     if (data.error) {
@@ -59,7 +75,7 @@ export default function Register() {
             />
           </FormControl>
           <FormControl errorMessage={errors.password?.message}>
-            <InputText
+            <InputPassword
               name="password"
               placeholder="Password"
               fitContainer
@@ -67,15 +83,22 @@ export default function Register() {
             />
           </FormControl>
           <FormControl errorMessage={errors.password_confirmation?.message}>
-            <InputText
+            <InputPassword
               name="password_confirmation"
               placeholder="Konfirmasi Password"
               fitContainer
               ref={register(rules.password_confirmation)}
             />
           </FormControl>
-          <Button size="large" fitContainer>
-            Mendaftar
+          <Button
+            size="large"
+            fitContainer
+            disabled={status === statuslist.process}
+          >
+            {" "}
+            {status === statuslist.process
+              ? "Sedang memproses"
+              : "Mendaftar"}{" "}
           </Button>
         </form>
       </Card>

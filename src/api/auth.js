@@ -1,11 +1,8 @@
 import axios from "axios";
 import { config } from "../config";
 
-export async function registerUser(email, password) {
-  return await axios.post(`${config.api_host}/auth/register`, {
-    email,
-    password,
-  });
+export async function registerUser(data) {
+  return await axios.post(`${config.api_host}/auth/register`, data);
 }
 
 export async function login(email, password) {

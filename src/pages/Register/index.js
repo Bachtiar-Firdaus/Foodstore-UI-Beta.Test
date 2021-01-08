@@ -1,55 +1,45 @@
 import * as React from "react";
-
 import {
-  Button,
+  LayoutOne,
   Card,
   FormControl,
-  InputPassword,
   InputText,
-  LayoutOne,
+  InputPassword,
+  Button,
 } from "upkit";
-
 import { useForm } from "react-hook-form";
-
 import { useHistory, Link } from "react-router-dom";
 
+import StoreLogo from "../../components/StoreLogo";
 import { rules } from "./validation";
-
 import { registerUser } from "../../api/auth";
 
-import StoreLogo from "../../components/StoreLogo";
-// statuslist
 const statuslist = {
   idle: "idle",
   process: "process",
   success: "success",
   error: "error",
 };
+
 export default function Register() {
   let { register, handleSubmit, errors, setError } = useForm();
-  //state status dengan nilai default `statuslist.idle`
   let [status, setStatus] = React.useState(statuslist.idle);
   let history = useHistory();
 
   const onSubmit = async (formData) => {
-    //cek data di dalam alert sudah terparsing atau belum
-    // alert(JSON.stringify(FormData));
-
-    // dapatkan variabel password dan password_confirmation
     let { password, password_confirmation } = formData;
-    // cek password vs password_confirmation
     if (password !== password_confirmation) {
       return setError("password_confirmation", {
         type: "equality",
         message: "Konfirmasi password harus sama dengan password",
       });
     }
-    // set status = process
+
     setStatus(statuslist.process);
+
     let { data } = await registerUser(formData);
-    // cek apakah ada error
+
     if (data.error) {
-      // dapatkan field terkait jika ada errors
       let fields = Object.keys(data.fields);
 
       fields.forEach((field) => {
@@ -57,13 +47,15 @@ export default function Register() {
           type: "server",
           message: data.fields[field]?.properties?.message,
         });
-        setStatus(statuslist.error);
-        return;
       });
-      setStatus(statuslist.success);
-      history.pushState("/register/berhasil");
+
+      setStatus(statuslist.error);
     }
+
+    setStatus(statuslist.success);
+    history.push("/register/berhasil");
   };
+
   return (
     <LayoutOne size="small">
       <Card color="white">
@@ -79,6 +71,7 @@ export default function Register() {
               ref={register(rules.full_name)}
             />
           </FormControl>
+
           <FormControl errorMessage={errors.email?.message}>
             <InputText
               name="email"
@@ -87,6 +80,7 @@ export default function Register() {
               ref={register(rules.email)}
             />
           </FormControl>
+
           <FormControl errorMessage={errors.password?.message}>
             <InputPassword
               name="password"
@@ -95,6 +89,7 @@ export default function Register() {
               ref={register(rules.password)}
             />
           </FormControl>
+
           <FormControl errorMessage={errors.password_confirmation?.message}>
             <InputPassword
               name="password_confirmation"
@@ -103,6 +98,7 @@ export default function Register() {
               ref={register(rules.password_confirmation)}
             />
           </FormControl>
+
           <Button
             size="large"
             fitContainer
@@ -115,9 +111,10 @@ export default function Register() {
           </Button>
         </form>
         <div className="text-center mt-2">
-          Sudah punya akun ?{" "}
+          Sudah punya akun?{" "}
           <Link to="/login">
-            <b>Masuk Sekarang</b>
+            {" "}
+            <b> Masuk Sekarang. </b>{" "}
           </Link>
         </div>
       </Card>

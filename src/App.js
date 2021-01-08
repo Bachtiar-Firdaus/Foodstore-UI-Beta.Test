@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 import { Provider } from "react-redux";
@@ -21,7 +21,6 @@ function App() {
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route path="/" component={Home} />
           <Route path="/login">
             <Login />
           </Route>
@@ -29,6 +28,7 @@ function App() {
           <Route path="/register/berhasil">
             <RegisterSuccess />
           </Route>
+          <Route path="/" component={Home} />
         </Switch>
       </Router>
     </Provider>

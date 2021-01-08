@@ -14,7 +14,7 @@ import {
 
 import { getProducts } from "../../api/product";
 // bungkus `getProducts` dengan `debounce`
-let deboncedFetchProducts = debounce(getProducts, 1000);
+let debouncedFetchProducts = debounce(getProducts, 1000);
 
 export const fetchProducts = () => {
   return async (dispatch, getState) => {
@@ -27,25 +27,21 @@ export const fetchProducts = () => {
     let category = getState().products.category || "";
 
     const params = {
-        limit = perPage,
-        skip: (currentPage*perPage)-perPage,
-        q: keyword,
-        tags,
-        category
-    }
+      limit: perPage,
+      skip: currentPage * perPage - perPage,
+      q: keyword,
+      tags,
+      category,
+    };
 
     try {
       // ubah `getProducts` menjadi `debouncedFetchProducts`
       let {
         data: { data, count },
-      } = await getProducts({});
-
+      } = await debouncedFetchProducts(params);
       dispatch(successFetchingProducts({ data, count }));
-
     } catch (err) {
-
       dispatch(errorFetchingProducts());
-      
     }
   };
 };
@@ -67,51 +63,49 @@ export const successFetchingProducts = ({ data, count }) => {
     count,
   };
 };
-export const setPage = (number = 1)=>{
-  return{
+export const setPage = (number = 1) => {
+  return {
     type: SET_PAGE,
-    currentPage:number
-  }
-}
+    currentPage: number,
+  };
+};
 
-export const goToNextPage = ()=>{
-  return{
-    type: NEXT_PAGE
-  }
-}
-export const goToPrevPage = () =>{
-  return{
-    type: PREV_PAGE
-  }
-}
+export const goToNextPage = () => {
+  return {
+    type: NEXT_PAGE,
+  };
+};
+export const goToPrevPage = () => {
+  return {
+    type: PREV_PAGE,
+  };
+};
 
-
-
-export const setKeyword = keyword=>{
-  return{
+export const setKeyword = (keyword) => {
+  return {
     type: SET_KEYWORD,
-    keyword
-  }
-}
-export const setCategory = category =>{
-  return{
+    keyword,
+  };
+};
+export const setCategory = (category) => {
+  return {
     type: SET_CATEGORY,
-    category
-  }
-}
-export const setTags = tags =>{
-  return{
+    category,
+  };
+};
+export const setTags = (tags) => {
+  return {
     type: SET_TAGS,
-    tags
-  }
-}
+    tags,
+  };
+};
 export const clearTags = () => {
   return setTags([]);
-}
+};
 
-export const toggleTag = tag =>{
-  return{
-    type:TOGGLE_TAG,
-    tag
-  }
-}
+export const toggleTag = (tag) => {
+  return {
+    type: TOGGLE_TAG,
+    tag,
+  };
+};

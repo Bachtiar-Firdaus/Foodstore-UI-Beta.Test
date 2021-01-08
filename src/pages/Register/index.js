@@ -6,11 +6,37 @@ import { useForm } from "react-hook-form";
 
 import { rules } from "./validation";
 
+import { registerUser } from "../../api/auth";
+
 export default function Register() {
   let { register, handleSubmit, errors, setError } = useForm();
-  const onSubmit = async (FormData) => {
+  const onSubmit = async (formData) => {
     //cek data di dalam alert sudah terparsing atau belum
     // alert(JSON.stringify(FormData));
+
+    // dapatkan variabel password dan password_confirmation
+    let { password, password_confirmation } = formData;
+    // cek password vs password_confirmation
+    if (password !== password_confirmation) {
+      return setError("password_confirmation", {
+        type: "equality",
+        message: "Konfirmasi password harus sama dengan password",
+      });
+    }
+
+    let { data } = await registerUser(formData);
+    // cek apakah ada error
+    if (data.error) {
+      // dapatkan field terkait jika ada errors
+      let fields = Object.keys(data.fields);
+
+      fields.forEach((field) => {
+        setError(field, {
+          type: "server",
+          message: data.fields[field]?.properties?.message,
+        });
+      });
+    }
   };
   return (
     <LayoutOne size="small">

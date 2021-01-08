@@ -11,7 +11,7 @@ import {
 
 import { useForm } from "react-hook-form";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { rules } from "./validation";
 
@@ -109,6 +109,12 @@ export default function Register() {
               : "Mendaftar"}{" "}
           </Button>
         </form>
+        <div className="text-center mt-2">
+          Sudah punya akun ?{" "}
+          <Link to="/login">
+            <b>Masuk Sekarang</b>
+          </Link>
+        </div>
       </Card>
     </LayoutOne>
   );

@@ -97,3 +97,8 @@ export const toggleTag = tag =>{
     tag
   }
 }
+export const goToNextPage = ()=>{
+  return{
+    type: NEXT_PAGE
+  }
+}

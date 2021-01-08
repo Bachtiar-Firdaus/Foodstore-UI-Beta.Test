@@ -74,6 +74,8 @@ export default function reducer(state = initialState, action) {
           tags: state.tags.filter((tag) => tag !== action.tag),
         };
       }
+    case NEXT_PAGE:
+      return { ...state, currentPage: state.currentPage + 1 };
     default:
       return state;
   }

@@ -1,11 +1,25 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SideNav, LayoutSidebar, Responsive, CardProduct } from "upkit";
+import {
+  SideNav,
+  LayoutSidebar,
+  Responsive,
+  CardProduct,
+  Pagination,
+} from "upkit";
 
 import menus from "./menus";
 import TopBar from "../../components/TopBar";
 import { config } from "../../config";
-import { fetchProducts } from "../../features/Products/actions";
+import {
+  fetchProducts,
+  setPage,
+  goToNextPage,
+  goToPrevPage,
+  setKeyword,
+  setCategory,
+  toggleTag,
+} from "../../features/Products/actions";
 
 export default function Home() {
   let dispatch = useDispatch();
@@ -13,7 +27,7 @@ export default function Home() {
 
   React.useEffect(() => {
     dispatch(fetchProducts());
-  }, [dispatch]);
+  }, [dispatch, products.currentPage]);
   return (
     <div>
       <LayoutSidebar
@@ -36,6 +50,16 @@ export default function Home() {
                   );
                 })}
               </Responsive>
+              <div>
+                <Pagination
+                  totalItems={products.totalItems}
+                  page={products.currentPage}
+                  perPage={products.perPage}
+                  onChange={(page) => dispatch(setPage(page))}
+                  onNext={(_) => dispatch(goToNextPage())}
+                  onPrev={(_) => dispatch(goToPrevPage())}
+                />
+              </div>
             </div>
 
             <div className="w-full md:w-1/4 h-full shadow-lg border-r border-white bg-gray-100">

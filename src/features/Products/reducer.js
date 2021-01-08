@@ -62,6 +62,8 @@ export default function reducer(state = initialState, action) {
         category: action.category,
         keyword,
       };
+    case SET_TAGS:
+      return { ...state, tags: action.tags };
     default:
       return state;
   }

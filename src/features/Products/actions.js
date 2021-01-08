@@ -85,3 +85,9 @@ export const setCategory = category =>{
     category
   }
 }
+export const setTags = tags =>{
+  return{
+    type: SET_TAGS,
+    tags
+  }
+}

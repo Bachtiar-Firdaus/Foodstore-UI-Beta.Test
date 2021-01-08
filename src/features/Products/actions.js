@@ -73,3 +73,9 @@ export const setPage = (number = 1)=>{
     currentPage:number
   }
 }
+export const setKeyword = keyword=>{
+  return{
+    type: SET_KEYWORD,
+    keyword
+  }
+}

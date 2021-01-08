@@ -4,8 +4,16 @@ import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 
 import authReducer from "../features/Auth/reducer";
+
+import productReducer from "../features/Products/reducer";
 //composer enhancer menghubungkan dengan Chrome DevTools Redux
 const composerEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const rootReducers = combineReducers({
+  auth: authReducer,
+  //product reducer sebagai _state_'products'
+  products: productReducer,
+});
 //gabung reducer
 const rootReducers = combineReducers({
   auth: authReducer,

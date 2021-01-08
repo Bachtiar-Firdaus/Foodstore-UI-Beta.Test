@@ -36,6 +36,20 @@ const initialState = {};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    // tangani `START_FETCHING_PRODUCT`
+    case START_FETCHING_PRODUCT:
+      return { ...state, status: statuslist.process };
+    // tangani `ERROR_FETCHING_PRODUCT`
+    case ERROR_FETCHING_PRODUCT:
+      return { ...state, status: statuslist.error };
+    // tangani `SUCCESS_FETCHING_PRODUCT`
+    case SUCCESS_FETCHING_PRODUCT:
+      return {
+        ...state,
+        status: statuslist.success,
+        data: action.data,
+        totalItems: action.count,
+      };
     default:
       return state;
   }

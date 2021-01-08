@@ -32,8 +32,6 @@ const initialState = {
   status: statuslist.idle,
 };
 
-const initialState = {};
-
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     // tangani `START_FETCHING_PRODUCT`
@@ -60,7 +58,7 @@ export default function reducer(state = initialState, action) {
         currentPage: 1,
         tags: [],
         category: action.category,
-        keyword,
+        keyword: "",
       };
     case SET_TAGS:
       return { ...state, tags: action.tags };
